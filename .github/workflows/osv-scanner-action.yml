@@ -26,10 +26,12 @@ jobs:
       - name: update PATH variable for GO install
         run: |
           export PATH=${PATH}:`go env GOPATH`/bin
+          echo $PATH
         
     # Installs and runs OSV scanner
       - name: Installs and runs OSV Scanner
         id: osvscan
         run: |
           go install github.com/google/osv-scanner/cmd/osv-scanner@v1
+          echo $PATH
           osv-scanner -r .
