@@ -22,16 +22,10 @@ jobs:
       - name: Setup Go environment
         uses: actions/setup-go@v3.5.0
         
-    # Sets environment variable properly
-      - name: update PATH variable for GO install
-        run: |
-          export PATH=${PATH}:`go env GOPATH`/bin
-          echo $PATH
-        
     # Installs and runs OSV scanner
       - name: Installs and runs OSV Scanner
         id: osvscan
         run: |
           go install github.com/google/osv-scanner/cmd/osv-scanner@v1
-          echo $PATH
+          export PATH=${PATH}:`go env GOPATH`/bin # Sets PATH environment variable properly
           osv-scanner -r .
